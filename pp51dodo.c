@@ -46,100 +46,100 @@ char* pp51dodo(unsigned int action) {
   unsigned int x,y,i;
 
   switch(action) {
-     case act_name : return("PP-51 DoDo");
-     case act_help : return("Hack the past");
-     case act_init :
-       // add any code here that needs to run once at powerup - e.g. hardware detection/initialisation
-       return(0);
+    case act_name : return("PP-51 DoDo");
+    case act_help : return("Hack the past");
+    case act_init :
+                    // add any code here that needs to run once at powerup - e.g. hardware detection/initialisation
+                    return(0);
 
-     case act_powerdown :
-          // add any code here that needs to run before powerdown
-         return(0);
+    case act_powerdown :
+                    // add any code here that needs to run before powerdown
+                    return(0);
 
-     case act_start :
-         // called once when app is selected from menu
-         state=s_start;
-         colour=1;
-         return(0);
-    } //switch
+    case act_start :
+                    // called once when app is selected from menu
+                    state=s_start;
+                    colour=1;
+                    return(0);
+  } //switch
 
- if (action!=act_poll) return(0);
+  if (action!=act_poll) return(0);
 
   // do anything that needs to be faster than tick here.
 
- if(!tick) return(0);
+  if(!tick) return(0);
 
- switch(state) {
-     case s_start :
-       state=s_run;
-       menu_pos = 0;
+  switch(state) {
+    case s_start :
+      state=s_run;
+      menu_pos = 0;
 
 
-     case s_run :
-       printf(top butcol "EXIT             Proc");
+    case s_run :
+      printf(top butcol "EXIT             Proc");
 
-       menu_line("RED", 0, terms[0][0], terms[0][1]);
-       menu_line("GREEN", 1, terms[1][0], terms[1][1]);
-       menu_line("BLUE", 2, terms[2][0], terms[2][1]);
+      menu_line("RED", 0, terms[0][0], terms[0][1]);
+      menu_line("GREEN", 1, terms[1][0], terms[1][1]);
+      menu_line("BLUE", 2, terms[2][0], terms[2][1]);
 
-       printf(bot butcol "  " uarr "         " darr"    Next" whi);
+      printf(bot butcol "  " uarr "         " darr"    Next" whi);
 
-       state = s_freeze;
+      state = s_freeze;
 
-       break;
+      break;
 
-     case s_freeze :
-       if(butpress) state=s_run;
-       break;
+    case s_freeze :
+      if(butpress) state=s_run;
+      break;
 
- } // switch state
+  } // switch state
 
- if(butpress & but3) {
-   if(++edit_col == 3) edit_col = 0;
- }
+  if(butpress & but3) {
+    if(++edit_col == 3) edit_col = 0;
+  }
 
- if(butpress & but4) {
-   FSchdir("CAMERA");
-   loadbmp("CAM0012.BMP", 2);
+  if(butpress & but4) {
+    FSchdir("CAMERA");
+    loadbmp("CAM0012.BMP", 2);
 
-   unsigned int gi;
+    unsigned int gi;
 
-   for(gi = 0, i = 0; i < cambufsize; i += 3) {
-     gi = i / 3;
-     x = gi  % WIDTH;
-     y = floor(gi / WIDTH);
+    for(gi = 0, i = 0; i < cambufsize; i += 3) {
+      gi = i / 3;
+      x = gi  % WIDTH;
+      y = floor(gi / WIDTH);
 
-     if(
-         (cambuffer[i] > terms[0][0] && cambuffer[i] < terms[0][1]) &&
-         (cambuffer[i] > terms[1][0] && cambuffer[i] < terms[1][1]) &&
-         (cambuffer[i] > terms[2][0] && cambuffer[i] < terms[2][1])
-     ) {
-       plotblock(x, y, 1, 1, primarycol[0]);
-     } else {
-       plotblock(x, y, 1, 1, cambuffer_w[i / 4]);
-     }
-   }
+      if(
+          (cambuffer[i] > terms[0][0] && cambuffer[i] < terms[0][1]) &&
+          (cambuffer[i] > terms[1][0] && cambuffer[i] < terms[1][1]) &&
+          (cambuffer[i] > terms[2][0] && cambuffer[i] < terms[2][1])
+        ) {
+        plotblock(x, y, 1, 1, primarycol[0]);
+      } else {
+        plotblock(x, y, 1, 1, cambuffer_w[i / 4]);
+      }
+    }
 
-   state = s_freeze;
- }
+    state = s_freeze;
+  }
 
- printf(bot butcol "  " uarr "         " darr"      Go" whi);
+  printf(bot butcol "  " uarr "         " darr"      Go" whi);
 
- if(edit_col == 0 && (butpress & but1)) {
-   if(--menu_pos > 3) menu_pos = 2;  // clear screen & restart
- } else if(edit_col == 0 && (butpress & but2)) {
-   if(++menu_pos == 3) menu_pos = 0;
- } else {
-   if(butpress & but1) {
-     terms[menu_pos][edit_col - 1]++;
-   }
+  if(edit_col == 0 && (butpress & but1)) {
+    if(--menu_pos > 3) menu_pos = 2;  // clear screen & restart
+  } else if(edit_col == 0 && (butpress & but2)) {
+    if(++menu_pos == 3) menu_pos = 0;
+  } else {
+    if(butpress & but1) {
+      terms[menu_pos][edit_col - 1]++;
+    }
 
-   if(butpress & but2) {
-     terms[menu_pos][edit_col - 1]--;
-   }
- }
+    if(butpress & but2) {
+      terms[menu_pos][edit_col - 1]--;
+    }
+  }
 
- if(butpress & powerbut) return(""); // exit with nonzero value to indicate we want to quit
+  if(butpress & powerbut) return(""); // exit with nonzero value to indicate we want to quit
 
- return(0);
+  return(0);
 }
