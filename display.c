@@ -27,7 +27,7 @@ void oled_init(void) { //initialise display after powerup. see SSD1351 chip and 
         0x1a1, 0x00,
 #if oled_upscan==1
         0x1a0, 0x35, // colour depth b0 rotate, b1 mirror b2 color orded, b4 v flip, b7,7 colour depth
-#else  
+#else
         0x1a0, 0x37, // colour depth b0 rotate, b1 mirror b2 color orded, b4 v flip, b7,7 colour depth
 #endif
         0x1b5, 0x0C, // GPIO gpio1 backlight power, gpio0 camera powerdown
@@ -51,14 +51,14 @@ void oled_init(void) { //initialise display after powerup. see SSD1351 chip and 
     delayus(oled_reset_time);
     oled_rst_hi;
     delayus(oled_reset_time);
-    
+
     for (i = 0; i != sizeof (oledinitdata) / 2; oledcmd(oledinitdata[i++]));
      while (SPI1STATbits.SPIBUSY);    oled_cs_hi;
     plotblock(0, 0, dispwidth, dispheight, 0); // clear display memory
     dispx = dispy = 0;
     fgcol = 0xffff;
     bgcol = 0;
-   
+
 }
 
 void monopalette(unsigned int min, unsigned int max) {
@@ -78,51 +78,51 @@ void plotblock(unsigned int xstart, unsigned int ystart, unsigned int xsize, uns
 {
     unsigned int i;
 
-    
- if ((xstart + xsize > dispwidth) || (ystart + ysize > dispheight) || (xsize == 0) || (ysize == 0)) return; 
-    
+
+ if ((xstart + xsize > dispwidth) || (ystart + ysize > dispheight) || (xsize == 0) || (ysize == 0)) return;
+
         oled_cs_lo;
         oled_cd_lo;
         SPI1BUF=0x75; while (SPI1STATbits.SPIBUSY); oled_cd_hi;
-        SPI1BUF=xstart; 
-        SPI1BUF=xstart + xsize - 1; 
+        SPI1BUF=xstart;
+        SPI1BUF=xstart + xsize - 1;
         while (SPI1STATbits.SPIBUSY);
-    
+
 
 #if oled_upscan==1
-       oled_cd_lo;      
-        SPI1BUF=0x15; 
-        i=((dispheight - ystart - 1) - ysize + 1); 
-        while (SPI1STATbits.SPIBUSY); 
+       oled_cd_lo;
+        SPI1BUF=0x15;
+        i=((dispheight - ystart - 1) - ysize + 1);
+        while (SPI1STATbits.SPIBUSY);
         oled_cd_hi;
-        SPI1BUF=i; 
+        SPI1BUF=i;
         SPI1BUF=dispheight - ystart - 1;
-        while (SPI1STATbits.SPIBUSY); 
+        while (SPI1STATbits.SPIBUSY);
 
 #else
-        
-        oled_cd_lo;      
-        SPI1BUF=0x15; 
-       while (SPI1STATbits.SPIBUSY); 
-        oled_cd_hi;
-        SPI1BUF=ystart; 
-        SPI1BUF=ystart + ysize - 1;
-        while (SPI1STATbits.SPIBUSY); 
 
-#endif  
-    
- 
-oled_cd_lo;      
+        oled_cd_lo;
+        SPI1BUF=0x15;
+       while (SPI1STATbits.SPIBUSY);
+        oled_cd_hi;
+        SPI1BUF=ystart;
+        SPI1BUF=ystart + ysize - 1;
+        while (SPI1STATbits.SPIBUSY);
+
+#endif
+
+
+oled_cd_lo;
         SPI1BUF=0x15c;   //send data
         i = xsize*ysize;
-       while (SPI1STATbits.SPIBUSY); 
+       while (SPI1STATbits.SPIBUSY);
         oled_cd_hi;
      SPI1CONbits.MODE16 = 1; // 16 bit for ease of accesss - no speed improvement
 
     do {
         while (SPI1STATbits.SPITBF);
         SPI1BUF = col;
-        
+
     } while(--i);
       while (SPI1STATbits.SPIBUSY); // wait until last byte sent before releasing CS. if we were DMAing, this would be done in DMA complete int
     SPI1CONbits.MODE16 = 0; // back to 8 bit mode
@@ -133,19 +133,19 @@ oled_cd_lo;
 void mplotblock(unsigned int x, unsigned int y, unsigned int width, unsigned int height, unsigned int colour, unsigned char* imgaddr) {
     // plot block in memory buffer for subsequent display using dispimage, 8bpp only.
     // speeds up displays of lots of pixels.
-    
+
     unsigned int xx, yy, gap;
-  
+
     gap = dispwidth - width;
     imgaddr += (y * dispwidth + x);
-    
+
     if(((x+width)>dispwidth) || ((y+height)>dispheight)) return;
-    
+
     for (yy = 0; yy != height; yy++) {
         for (xx = 0; xx != width; xx++) *imgaddr++ = (unsigned char) colour;
         imgaddr += gap;
     }
-   
+
 
 }
 
@@ -156,12 +156,12 @@ void dispimage(unsigned int xstart, unsigned int ystart, unsigned int xsize, uns
     bpp = format & 3;
     skip = (format & 0xf0) >> 4;
     vdup=(format & img_vdouble)?2:1;
-   
+
 #if oled_upscan==1
     format ^= img_revscan;
 #endif
     if ((xstart + xsize > dispwidth) || (ystart + ysize > dispheight) || (xsize == 0) || (ysize == 0)) return;
-    
+
     oledcmd(0x175);
     oledcmd(xstart);
     oledcmd(xstart + xsize - 1); // column address
@@ -169,11 +169,11 @@ void dispimage(unsigned int xstart, unsigned int ystart, unsigned int xsize, uns
     oledcmd(0x115);
     oledcmd((dispheight - ystart - 1) - ysize*vdup + 1);
     oledcmd(dispheight - ystart - 1); // row address
-#else   
+#else
     oledcmd(0x115);
     oledcmd(ystart);
     oledcmd(ystart + ysize*vdup - 1); // row address
-#endif 
+#endif
 
     oledcmd(0x15c); //send data
 
@@ -184,17 +184,17 @@ void dispimage(unsigned int xstart, unsigned int ystart, unsigned int xsize, uns
     oled_cs_lo;
     SPI1CONbits.MODE16 = 1; // 16 bit for ease of accesss - no speed improvement
 
-    //contrary to what datasheet implies, it doesn't seem necessary to de-assert CS between bytes, 
+    //contrary to what datasheet implies, it doesn't seem necessary to de-assert CS between bytes,
     // so we can use buffered mode to avoid gaps between bytes for higher throughput.
 
-    // Code doesn't need to be super-efficient as speed is limited by OLED max SPI clock rate. 
+    // Code doesn't need to be super-efficient as speed is limited by OLED max SPI clock rate.
     // as long as we can produce 1 pixel every 1.3uS avaraged over the 8 pixel FIFO size we're maxing out the SPI bus
 
 
     for (y = 0; y != ysize; y++) {
-        
+
         for(vcount=0;vcount!=vdup;vcount++) {
-            
+
         if (format & img_revscan) imgaddr2 = imgaddr + (ysize - y - 1) * xsize * bpp *(skip + 1);
         else imgaddr2 = imgaddr + y * xsize * bpp * (skip + 1);
 
@@ -218,13 +218,13 @@ void dispimage(unsigned int xstart, unsigned int ystart, unsigned int xsize, uns
                     r = *imgaddr2++;
                     d = (r << 8 & 0xf800) | (g << 3 & 0x7C0) | (b >> 3);
                     imgaddr2 += skip * 3;
-            } // switch bpp   
+            } // switch bpp
 
             while (SPI1STATbits.SPITBF);
             SPI1BUF = d;
         } // for x
         } // for vcount
-    }// for y 
+    }// for y
 
 
     while (SPI1STATbits.SPIBUSY); // wait until last byte sent before releasing CS. if we were DMAing, this would be done in DMA complete int
@@ -242,7 +242,7 @@ void dispchar(unsigned char c) {// display 1 character, do control characters
     unsigned int x, y, b, m;
 
     if (dispuart) {
-      
+
         if (dispuart & dispuart_u1) u1txbyte(c);
         else u2txbyte(c); //UART mode
         if(!(dispuart & dispuart_screen) ) return;
@@ -263,17 +263,17 @@ void dispchar(unsigned char c) {// display 1 character, do control characters
             x = fgcol;
             fgcol = bgcol;
             bgcol = x;
-            break; // invert  
+            break; // invert
 
-        case 8:// BS 
+        case 8:// BS
             if (dispx >= charwidth) dispx -= charwidth;
             break;
-        case 10:// crlf 
+        case 10:// crlf
             dispx = 0;
             dispy += vspace;
             if (dispy >= dispheight) dispy = 0;
             break;
-        case 12: // CLS 
+        case 12: // CLS
             plotblock(0, 0, dispwidth, dispheight, bgcol);
             dispx = dispy = 0;
             break;
@@ -311,17 +311,17 @@ void dispchar(unsigned char c) {// display 1 character, do control characters
             oledcmd(dispy);
             oledcmd(dispy + charheight - 1); // row address
 #endif
-            oledcmd(0x15c); //send data  
+            oledcmd(0x15c); //send data
             SPI1CONbits.MODE16 = 1; // 16 bit SPI so 1 transfer per pixel
             oled_cd_hi;
             oled_cs_lo;
             c -= startchar;
             for (y = 0; y != charheight; y++) {
 #if oled_upscan==1
-                b = FONT6x8[c][7 - y]; //lookup outside loop for speed    
+                b = FONT6x8[c][7 - y]; //lookup outside loop for speed
 #else
-                b = FONT6x8[c][y]; //lookup outside loop for speed  
-#endif          
+                b = FONT6x8[c][y]; //lookup outside loop for speed
+#endif
                 for (x = 0; x != charwidth; x++) {
                     while (SPI1STATbits.SPITBF);
                     SPI1BUF = (b & 0x80) ? fgcol : bgcol;

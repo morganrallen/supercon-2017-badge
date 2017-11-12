@@ -41,7 +41,7 @@ char* pp51dodo(unsigned int action) {
   static unsigned int blink = 0;
   static unsigned int state,colour;
 
-  static unsigned int terms[3][2] = {{ 0, 255 }, { 0, 255 }, { 0, 255 }};
+  static unsigned int terms[3][2] = {{ 150, 255}, { 240, 255 }, { 240, 255 }};
 
   unsigned int x,y,i;
 
@@ -104,19 +104,19 @@ char* pp51dodo(unsigned int action) {
 
     unsigned int gi;
 
-    for(gi = 0, i = 0; i < cambufsize; i += 3) {
-      gi = i / 3;
-      x = gi  % WIDTH;
-      y = floor(gi / WIDTH);
+    for(gi = 0, i = 0; i < cambufsize; i += 3, gi++) {
+      x = gi % WIDTH;
+      y = 96 - floor(gi / WIDTH);
 
       if(
-          (cambuffer[i] > terms[0][0] && cambuffer[i] < terms[0][1]) &&
-          (cambuffer[i] > terms[1][0] && cambuffer[i] < terms[1][1]) &&
-          (cambuffer[i] > terms[2][0] && cambuffer[i] < terms[2][1])
-        ) {
-        plotblock(x, y, 1, 1, primarycol[0]);
+          (cambuffer[i + 2] > terms[0][0] && cambuffer[i + 2] < terms[0][1]) &&
+          (cambuffer[i + 1] > terms[1][0] && cambuffer[i + 1] < terms[1][1]) &&
+          (cambuffer[i]     > terms[2][0] && cambuffer[i]     < terms[2][1])
+      ) {
+        plotblock(x, y + 15, 1, 1, primarycol[2]);
       } else {
-        plotblock(x, y, 1, 1, cambuffer_w[i / 4]);
+        plotblock(x, y + 15, 1, 1, primarycol[0]);
+        //plotblock(x, y + 15, 1, 1, rgbto16(cambuffer[i + 2], cambuffer[i + 1], cambuffer[i]));
       }
     }
 
