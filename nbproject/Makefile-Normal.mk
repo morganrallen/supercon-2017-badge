@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=cambadge.c hardware.c interrupts.c MDD_File_System/FSIO.c MDD_File_System/SD-SPI.c globals.c display.c serial.c fileformats.c particle.c browser.c camera.c apptemplate.c codescan.c utils.c imagefx.c scope.c box_game.c breakout.c tetrapuzz.c pp51dodo.c
+SOURCEFILES_QUOTED_IF_SPACED=cambadge.c hardware.c interrupts.c MDD_File_System/FSIO.c MDD_File_System/SD-SPI.c globals.c display.c serial.c fileformats.c particle.c browser.c camera.c apptemplate.c utils.c imagefx.c scope.c box_game.c breakout.c pp51dodo.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/cambadge.o ${OBJECTDIR}/hardware.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/MDD_File_System/FSIO.o ${OBJECTDIR}/MDD_File_System/SD-SPI.o ${OBJECTDIR}/globals.o ${OBJECTDIR}/display.o ${OBJECTDIR}/serial.o ${OBJECTDIR}/fileformats.o ${OBJECTDIR}/particle.o ${OBJECTDIR}/browser.o ${OBJECTDIR}/camera.o ${OBJECTDIR}/apptemplate.o ${OBJECTDIR}/codescan.o ${OBJECTDIR}/utils.o ${OBJECTDIR}/imagefx.o ${OBJECTDIR}/scope.o ${OBJECTDIR}/box_game.o ${OBJECTDIR}/breakout.o ${OBJECTDIR}/tetrapuzz.o ${OBJECTDIR}/pp51dodo.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/cambadge.o.d ${OBJECTDIR}/hardware.o.d ${OBJECTDIR}/interrupts.o.d ${OBJECTDIR}/MDD_File_System/FSIO.o.d ${OBJECTDIR}/MDD_File_System/SD-SPI.o.d ${OBJECTDIR}/globals.o.d ${OBJECTDIR}/display.o.d ${OBJECTDIR}/serial.o.d ${OBJECTDIR}/fileformats.o.d ${OBJECTDIR}/particle.o.d ${OBJECTDIR}/browser.o.d ${OBJECTDIR}/camera.o.d ${OBJECTDIR}/apptemplate.o.d ${OBJECTDIR}/codescan.o.d ${OBJECTDIR}/utils.o.d ${OBJECTDIR}/imagefx.o.d ${OBJECTDIR}/scope.o.d ${OBJECTDIR}/box_game.o.d ${OBJECTDIR}/breakout.o.d ${OBJECTDIR}/tetrapuzz.o.d ${OBJECTDIR}/pp51dodo.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/cambadge.o ${OBJECTDIR}/hardware.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/MDD_File_System/FSIO.o ${OBJECTDIR}/MDD_File_System/SD-SPI.o ${OBJECTDIR}/globals.o ${OBJECTDIR}/display.o ${OBJECTDIR}/serial.o ${OBJECTDIR}/fileformats.o ${OBJECTDIR}/particle.o ${OBJECTDIR}/browser.o ${OBJECTDIR}/camera.o ${OBJECTDIR}/apptemplate.o ${OBJECTDIR}/utils.o ${OBJECTDIR}/imagefx.o ${OBJECTDIR}/scope.o ${OBJECTDIR}/box_game.o ${OBJECTDIR}/breakout.o ${OBJECTDIR}/pp51dodo.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/cambadge.o.d ${OBJECTDIR}/hardware.o.d ${OBJECTDIR}/interrupts.o.d ${OBJECTDIR}/MDD_File_System/FSIO.o.d ${OBJECTDIR}/MDD_File_System/SD-SPI.o.d ${OBJECTDIR}/globals.o.d ${OBJECTDIR}/display.o.d ${OBJECTDIR}/serial.o.d ${OBJECTDIR}/fileformats.o.d ${OBJECTDIR}/particle.o.d ${OBJECTDIR}/browser.o.d ${OBJECTDIR}/camera.o.d ${OBJECTDIR}/apptemplate.o.d ${OBJECTDIR}/utils.o.d ${OBJECTDIR}/imagefx.o.d ${OBJECTDIR}/scope.o.d ${OBJECTDIR}/box_game.o.d ${OBJECTDIR}/breakout.o.d ${OBJECTDIR}/pp51dodo.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/cambadge.o ${OBJECTDIR}/hardware.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/MDD_File_System/FSIO.o ${OBJECTDIR}/MDD_File_System/SD-SPI.o ${OBJECTDIR}/globals.o ${OBJECTDIR}/display.o ${OBJECTDIR}/serial.o ${OBJECTDIR}/fileformats.o ${OBJECTDIR}/particle.o ${OBJECTDIR}/browser.o ${OBJECTDIR}/camera.o ${OBJECTDIR}/apptemplate.o ${OBJECTDIR}/codescan.o ${OBJECTDIR}/utils.o ${OBJECTDIR}/imagefx.o ${OBJECTDIR}/scope.o ${OBJECTDIR}/box_game.o ${OBJECTDIR}/breakout.o ${OBJECTDIR}/tetrapuzz.o ${OBJECTDIR}/pp51dodo.o
+OBJECTFILES=${OBJECTDIR}/cambadge.o ${OBJECTDIR}/hardware.o ${OBJECTDIR}/interrupts.o ${OBJECTDIR}/MDD_File_System/FSIO.o ${OBJECTDIR}/MDD_File_System/SD-SPI.o ${OBJECTDIR}/globals.o ${OBJECTDIR}/display.o ${OBJECTDIR}/serial.o ${OBJECTDIR}/fileformats.o ${OBJECTDIR}/particle.o ${OBJECTDIR}/browser.o ${OBJECTDIR}/camera.o ${OBJECTDIR}/apptemplate.o ${OBJECTDIR}/utils.o ${OBJECTDIR}/imagefx.o ${OBJECTDIR}/scope.o ${OBJECTDIR}/box_game.o ${OBJECTDIR}/breakout.o ${OBJECTDIR}/pp51dodo.o
 
 # Source Files
-SOURCEFILES=cambadge.c hardware.c interrupts.c MDD_File_System/FSIO.c MDD_File_System/SD-SPI.c globals.c display.c serial.c fileformats.c particle.c browser.c camera.c apptemplate.c codescan.c utils.c imagefx.c scope.c box_game.c breakout.c tetrapuzz.c pp51dodo.c
+SOURCEFILES=cambadge.c hardware.c interrupts.c MDD_File_System/FSIO.c MDD_File_System/SD-SPI.c globals.c display.c serial.c fileformats.c particle.c browser.c camera.c apptemplate.c utils.c imagefx.c scope.c box_game.c breakout.c pp51dodo.c
 
 
 CFLAGS=
@@ -184,12 +184,6 @@ ${OBJECTDIR}/apptemplate.o: apptemplate.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/apptemplate.o 
 	@${FIXDEPS} "${OBJECTDIR}/apptemplate.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -DICD4Tool=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MMD -MF "${OBJECTDIR}/apptemplate.o.d" -o ${OBJECTDIR}/apptemplate.o apptemplate.c    -DXPRJ_Normal=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -fno-aggressive-loop-optimizations
 	
-${OBJECTDIR}/codescan.o: codescan.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/codescan.o.d 
-	@${RM} ${OBJECTDIR}/codescan.o 
-	@${FIXDEPS} "${OBJECTDIR}/codescan.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -DICD4Tool=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MMD -MF "${OBJECTDIR}/codescan.o.d" -o ${OBJECTDIR}/codescan.o codescan.c    -DXPRJ_Normal=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -fno-aggressive-loop-optimizations
-	
 ${OBJECTDIR}/utils.o: utils.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/utils.o.d 
@@ -219,12 +213,6 @@ ${OBJECTDIR}/breakout.o: breakout.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/breakout.o.d 
 	@${RM} ${OBJECTDIR}/breakout.o 
 	@${FIXDEPS} "${OBJECTDIR}/breakout.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -DICD4Tool=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MMD -MF "${OBJECTDIR}/breakout.o.d" -o ${OBJECTDIR}/breakout.o breakout.c    -DXPRJ_Normal=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -fno-aggressive-loop-optimizations
-	
-${OBJECTDIR}/tetrapuzz.o: tetrapuzz.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/tetrapuzz.o.d 
-	@${RM} ${OBJECTDIR}/tetrapuzz.o 
-	@${FIXDEPS} "${OBJECTDIR}/tetrapuzz.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -DICD4Tool=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MMD -MF "${OBJECTDIR}/tetrapuzz.o.d" -o ${OBJECTDIR}/tetrapuzz.o tetrapuzz.c    -DXPRJ_Normal=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -fno-aggressive-loop-optimizations
 	
 ${OBJECTDIR}/pp51dodo.o: pp51dodo.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -311,12 +299,6 @@ ${OBJECTDIR}/apptemplate.o: apptemplate.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/apptemplate.o 
 	@${FIXDEPS} "${OBJECTDIR}/apptemplate.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MMD -MF "${OBJECTDIR}/apptemplate.o.d" -o ${OBJECTDIR}/apptemplate.o apptemplate.c    -DXPRJ_Normal=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -fno-aggressive-loop-optimizations
 	
-${OBJECTDIR}/codescan.o: codescan.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/codescan.o.d 
-	@${RM} ${OBJECTDIR}/codescan.o 
-	@${FIXDEPS} "${OBJECTDIR}/codescan.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MMD -MF "${OBJECTDIR}/codescan.o.d" -o ${OBJECTDIR}/codescan.o codescan.c    -DXPRJ_Normal=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -fno-aggressive-loop-optimizations
-	
 ${OBJECTDIR}/utils.o: utils.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/utils.o.d 
@@ -346,12 +328,6 @@ ${OBJECTDIR}/breakout.o: breakout.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/breakout.o.d 
 	@${RM} ${OBJECTDIR}/breakout.o 
 	@${FIXDEPS} "${OBJECTDIR}/breakout.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MMD -MF "${OBJECTDIR}/breakout.o.d" -o ${OBJECTDIR}/breakout.o breakout.c    -DXPRJ_Normal=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -fno-aggressive-loop-optimizations
-	
-${OBJECTDIR}/tetrapuzz.o: tetrapuzz.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/tetrapuzz.o.d 
-	@${RM} ${OBJECTDIR}/tetrapuzz.o 
-	@${FIXDEPS} "${OBJECTDIR}/tetrapuzz.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -O1 -MMD -MF "${OBJECTDIR}/tetrapuzz.o.d" -o ${OBJECTDIR}/tetrapuzz.o tetrapuzz.c    -DXPRJ_Normal=$(CND_CONF)  -legacy-libc  $(COMPARISON_BUILD)  -fno-aggressive-loop-optimizations
 	
 ${OBJECTDIR}/pp51dodo.o: pp51dodo.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 

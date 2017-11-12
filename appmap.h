@@ -14,7 +14,7 @@
 #define app_11 demoapp
 #define app_12 pp51dodo
 
-#define applist app_12,app_1,app_2, app_3,app_4,app_5,/*app_6,*/app_7,app_8,app_9,app_10,app_11
+#define applist app_12,app_1,app_2, app_3,app_9,app_10,app_11
 
 #define napps (sizeof(apps)/4)
 
@@ -23,8 +23,6 @@
 char* app_1(unsigned int);
 char* app_2(unsigned int);
 char* app_3(unsigned int);
-char* app_4(unsigned int);
-char* app_5(unsigned int);
 char* app_6(unsigned int);
 char* app_7(unsigned int);
 char* app_8(unsigned int);
