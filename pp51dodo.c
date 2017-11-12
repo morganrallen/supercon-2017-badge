@@ -14,8 +14,15 @@
 #define WIDTH (128)
 #define HEIGHT (96)
 
+#define BADGE_HEIGHT (16)
+#define BADGE_WIDTH  ( 8)
+
 static unsigned int menu_pos = 0;
 static unsigned int edit_col = 0;
+
+static int bounds[2][2] = {{ 0, 0 }, { 0, 0 }};
+static uint8_t pixel_height = 0;
+static uint8_t pixel_width = 0;
 
 void menu_line(char* text, unsigned int pos, unsigned int low, unsigned int hi) {
   unsigned int i;
@@ -46,6 +53,10 @@ unsigned int lineartoy(unsigned int i) {
   return 96 + 15 - floor(i / WIDTH);
 }
 
+unsigned int xytolinear(unsigned int x, unsigned int y) {
+  return (96 - y) * WIDTH + x;
+}
+
 void erode_pixel(i) {
   uint8_t weight = 5;
   uint8_t pos = 0;
@@ -67,6 +78,13 @@ void erode_pixel(i) {
   }
 }
 
+// pixel per pixel
+// figure out how much area a pixel takes up
+void calculate_ppp() {
+  pixel_height = (bounds[0][1] - bounds[0][0]) / BADGE_HEIGHT;
+  pixel_width = (bounds[0][1] - bounds[0][0]) / BADGE_WIDTH;
+}
+
 void do_erosion() {
   unsigned int x;
   unsigned int y;
@@ -79,29 +97,18 @@ void do_erosion() {
 
 }
 
-void erode_grid(uint8_t x, uint8_t y, unsigned int i) {
-  unsigned int center = i - WIDTH - 1;
-  uint8_t pos;
-  uint8_t weight = 5;
+void detect_pixels() {
+  unsigned int x, y;
+  uint8_t hheight = floor(pixel_height / 2);
+  uint8_t hwidth = floor(pixel_width / 2);
 
-  if(center < WIDTH + 2) return; // second row, second pixel or go home.
-
-  int hits[9] = {
-    center - WIDTH - 1, center - WIDTH, center - WIDTH + 1,
-    center - 1, center,  center + 1,
-    center + WIDTH - 1, center + WIDTH, center + WIDTH + 1
-  };
-
-  for(pos = 0; pos < 9; pos++) {
-    if(cambuffer[pos] == 1) weight++;
-    else weight--;
-  }
-
-  for(pos = 0; pos < 9; pos++) {
-    if(weight > 5) {
-      plotblock(lineartox(hits[pos]), lineartoy(hits[pos]), 1, 1, primarycol[3]);
-    } else {
-      plotblock(lineartox(hits[pos]), lineartoy(hits[pos]), 1, 1, primarycol[7]);
+  for(x = bounds[0][0] + 2; x < bounds[0][1]; x += pixel_height) {
+    for(y = bounds[1][0] + hheight; y < bounds[1][1]; y += pixel_height) {
+      if(cambuffer[xytolinear(x, y)] == 1) {
+        plotblock(x, y + 15, 1, 1, primarycol[1]);
+      } else {
+        plotblock(x, y + 15, 1, 1, cya);
+      }
     }
   }
 }
@@ -168,10 +175,9 @@ char* pp51dodo(unsigned int action) {
 
   if(butpress & but4) {
     FSchdir("CAMERA");
-    loadbmp("CAM0012.BMP", 2);
+    loadbmp("CAM0014.BMP", 2);
 
     unsigned int gi;
-    int bounds[2][2] = {{ 0, 0 }, { 0, 0 }};
 
     for(gi = 0, i = 0; i < 128*96*3; i += 3, gi++) {
       x = gi % WIDTH;
@@ -196,20 +202,23 @@ char* pp51dodo(unsigned int action) {
         plotblock(x, y + 15, 1, 1, primarycol[0]);
         //plotblock(x, y + 15, 1, 1, rgbto16(cambuffer[i + 2], cambuffer[i + 1], cambuffer[i]));
       }
-
-      if(x > 1 && y < 80 && x % 3 == 1 && y % 3 == 1) {
-        //erode_grid(x, y, i);
-        //plotblock(x, y + 15, 1, 1, primarycol[7]);
-      }
     }
 
     do_erosion();
+
+    calculate_ppp();
+
+    // should be 6x13
+    printf("  %d %d", pixel_height, pixel_width);
+
     plotblock(
-      bounds[0][0], bounds[1][0] - 15,
+      bounds[0][0], bounds[1][0] + 15,
       bounds[0][1] - bounds[0][0],
       bounds[1][1] - bounds[1][0],
       primarycol[1]
     );
+
+    detect_pixels();
 
     state = s_freeze;
   }
